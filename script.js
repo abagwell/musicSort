@@ -20,6 +20,9 @@ function populateBoard(count) {
 
   buildTable(factor1, factor2, colorDistribution, color);
 
+ 
+
+
 }
 
 /*
@@ -54,7 +57,7 @@ function buildTable(factor1, factor2, colorArray, colorScheme) {
   
   //rows are the outer loop, columns are the inner..
   //factor 1 is the row so users can't blow out the html by picking a large prime number
-  var cellId = 1; //this value hold the cell id, incrementing with each iteration of loop
+  var cellId = 0; //this value hold the cell id, incrementing with each iteration of loop
   for (var i = 0; i < factor1; i++) {
 
     var tableRow = document.createElement("tr");
@@ -62,9 +65,9 @@ function buildTable(factor1, factor2, colorArray, colorScheme) {
     for (var j = 0; j < factor2; j++) {
 
       var button = document.createElement("button"); // get button
-      button.style.setProperty("background-color", colorScheme[colorArray[cellId-1]]); //set color according to distribution
+      button.style.setProperty("background-color", colorScheme[colorArray[cellId]]); //set color according to distribution
+      button.setAttribute("id", (++cellId)); //set its id to a unique numerical value
       var tableColumn = document.createElement("td"); //get column
-      tableColumn.setAttribute("id", (cellId++)); //set its id to a unique numerical value
       tableColumn.appendChild(button); //append button to column
       tableRow.appendChild(tableColumn); //append column to row
 
@@ -85,4 +88,24 @@ function getRandomIndex(numOfColors) {
   return Math.floor(Math.random() * (numOfColors- 0) + 0);
 }
 
-populateBoard(3);
+/*
+
+
+*/
+
+function updateTable(factor1, factor2, colorArray, colorScheme) {
+
+  //perform an iteration of the sort
+
+  //take the adjusted color distribution and reapply back to the table via a loop 
+
+  for (var i = 1 ; i <= (factor1*factor2); i++) {
+
+    document.getElementById(i).style.setProperty("background-color", purple[6]);
+
+  }
+
+
+}
+
+populateBoard(49);

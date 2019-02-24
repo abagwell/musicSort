@@ -20,9 +20,13 @@ function populateBoard(count) {
 
   buildTable(factor1, factor2, colorDistribution, color);
 
+  console.log( "START - " + colorDistribution);
+
+  doSelectionSort(colorDistribution, color);
+
+  console.log( "END - " + colorDistribution);
+
  
-
-
 }
 
 /*
@@ -36,7 +40,6 @@ function distributeColorIndexes(factor1, factor2, colorScheme) {
   for (var i = 0; i < factor1*factor2; i++) {
 
     var randomIndex = getRandomIndex(colorScheme.length);
-    console.log("random number is " + randomIndex);
     colorDistribution.push(randomIndex);
 
   }
@@ -50,7 +53,7 @@ function distributeColorIndexes(factor1, factor2, colorScheme) {
 */
 
 
-function buildTable(factor1, factor2, colorArray, colorScheme) {
+function buildTable(factor1, factor2, colorDistrArr, colorScheme) {
 
   //get table handle 
   var table = document.querySelector("tbody");
@@ -65,7 +68,7 @@ function buildTable(factor1, factor2, colorArray, colorScheme) {
     for (var j = 0; j < factor2; j++) {
 
       var button = document.createElement("button"); // get button
-      button.style.setProperty("background-color", colorScheme[colorArray[cellId]]); //set color according to distribution
+      button.style.setProperty("background-color", colorScheme[colorDistrArr[cellId]]); //set color according to distribution
       button.setAttribute("id", (++cellId)); //set its id to a unique numerical value
       var tableColumn = document.createElement("td"); //get column
       tableColumn.appendChild(button); //append button to column
@@ -93,18 +96,40 @@ function getRandomIndex(numOfColors) {
 
 */
 
-function updateTable(factor1, factor2, colorArray, colorScheme) {
-
-  //perform an iteration of the sort
+function updateTable(colorDistrArr, colorScheme) {
 
   //take the adjusted color distribution and reapply back to the table via a loop 
 
-  for (var i = 1 ; i <= (factor1*factor2); i++) {
+  for (var i = 1 ; i <= colorDistrArr.length; i++) {
 
-    document.getElementById(i).style.setProperty("background-color", purple[6]);
+    document.getElementById(i).style.setProperty("background-color", colorScheme[colorDistrArr[i-1]]);
 
   }
 
+}
+
+function doSelectionSort(colorDistrArr, colorScheme) {
+
+  for (var i = 0; i < colorDistrArr.length; i++) {
+
+    var min = (colorScheme.length + 1); //there's only positive values 
+    var index = -1; 
+      //find the min
+    for (var j = i; j < colorDistrArr.length; j++) {
+
+      if (min > colorDistrArr[j]) {
+
+          min = colorDistrArr[j];
+          index = j
+      }
+
+    }
+      //swap it with the value at the zero index of the sub array
+      var swap = colorDistrArr[i];
+      colorDistrArr[i] = colorDistrArr[index];
+      colorDistrArr[index] = swap; 
+      setTimeout(updateTable(colorDistrArr, colorScheme), 20000);
+  }
 
 }
 

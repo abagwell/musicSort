@@ -20,13 +20,12 @@ function populateBoard(count) {
 
   buildTable(factor1, factor2, colorDistribution, color);
 
-  console.log( "START - " + colorDistribution);
+  setTimeout(function() {
 
-  doSelectionSort(colorDistribution, color);
+    doSelectionSort(colorDistribution, color);
 
-  console.log( "END - " + colorDistribution);
+  }, 2000);
 
- 
 }
 
 /*
@@ -128,9 +127,37 @@ function doSelectionSort(colorDistrArr, colorScheme) {
       var swap = colorDistrArr[i];
       colorDistrArr[i] = colorDistrArr[index];
       colorDistrArr[index] = swap; 
-      setTimeout(updateTable(colorDistrArr, colorScheme), 20000);
+      updateTable(colorDistrArr, colorScheme);
+      
   }
 
 }
+
+function doSelectionSortIteration(colorDistrArr, colorScheme, start) {
+
+  for (var i = start; i < colorDistrArr.length; i++) {
+
+    var min = (colorScheme.length + 1); //there's only positive values 
+    var index = -1; 
+      //find the min
+    for (var j = i; j < colorDistrArr.length; j++) {
+
+      if (min > colorDistrArr[j]) {
+
+          min = colorDistrArr[j];
+          index = j
+      }
+
+    }
+      //swap it with the value at the zero index of the sub array
+      var swap = colorDistrArr[i];
+      colorDistrArr[i] = colorDistrArr[index];
+      colorDistrArr[index] = swap; 
+  }
+
+  return colorDistrArr;
+
+}
+
 
 populateBoard(49);

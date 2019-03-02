@@ -5,7 +5,7 @@ function populateBoard(count) {
   We nned to factor the input number to determine the number of rows and columns with 
   the goal being to find the factors that are closest in size to get a more square table 
   */
-  var color = pink;  
+  var color = red;  
   var factor1 = Math.trunc(Math.sqrt(count));
   
   while (count%factor1 != 0) {
@@ -20,11 +20,22 @@ function populateBoard(count) {
 
   buildTable(factor1, factor2, colorDistribution, color);
 
-  setTimeout(function() {
+  var increment = 0; 
+  var limit = colorDistribution.length -1;
 
-    doSelectionSort(colorDistribution, color);
+  var intervalId = setInterval(function() {
 
-  }, 2000);
+    if (increment >= limit) {
+
+      clearInterval(intervalId);
+    }
+    console.log(increment);
+    doSelectionSortIteration(colorDistribution, color, increment);
+
+    increment++;
+
+  }, 1000);
+
 
 }
 
@@ -135,29 +146,25 @@ function doSelectionSort(colorDistrArr, colorScheme) {
 
 function doSelectionSortIteration(colorDistrArr, colorScheme, start) {
 
-  for (var i = start; i < colorDistrArr.length; i++) {
-
-    var min = (colorScheme.length + 1); //there's only positive values 
-    var index = -1; 
+  var min = (colorScheme.length + 1); //there's only positive values 
+  var index = -1; 
       //find the min
-    for (var j = i; j < colorDistrArr.length; j++) {
+  for (var j = start; j < colorDistrArr.length; j++) {
 
-      if (min > colorDistrArr[j]) {
+    if (min > colorDistrArr[j]) {
 
-          min = colorDistrArr[j];
-          index = j
-      }
-
+        min = colorDistrArr[j];
+        index = j
     }
-      //swap it with the value at the zero index of the sub array
-      var swap = colorDistrArr[i];
-      colorDistrArr[i] = colorDistrArr[index];
-      colorDistrArr[index] = swap; 
-  }
 
-  return colorDistrArr;
+  }
+    //swap it with the value at the zero index of the sub array
+    var swap = colorDistrArr[start];
+    colorDistrArr[start] = colorDistrArr[index];
+    colorDistrArr[index] = swap;
+    updateTable(colorDistrArr, colorScheme); 
 
 }
 
 
-populateBoard(49);
+populateBoard(144);

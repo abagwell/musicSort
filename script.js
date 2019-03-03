@@ -25,16 +25,16 @@ function populateBoard(count) {
 
   var intervalId = setInterval(function() {
 
-    if (increment >= limit) {
+    if (increment === limit) {
 
       clearInterval(intervalId);
     }
-    console.log(increment);
+    
     doSelectionSortIteration(colorDistribution, color, increment);
 
     increment++;
 
-  }, 1000);
+  }, 250);
 
 
 }

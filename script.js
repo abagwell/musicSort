@@ -5,7 +5,8 @@ function populateBoard(count) {
   We nned to factor the input number to determine the number of rows and columns with 
   the goal being to find the factors that are closest in size to get a more square table 
   */
-  var color = red;  
+  var color = yellow; 
+  var speed = 250 
   var factor1 = Math.trunc(Math.sqrt(count));
   
   while (count%factor1 != 0) {
@@ -20,21 +21,9 @@ function populateBoard(count) {
 
   buildTable(factor1, factor2, colorDistribution, color);
 
-  var increment = 0; 
-  var limit = colorDistribution.length -1;
+  //selectionSort(colorDistribution, color, speed);
+  bubbleSort(colorDistribution, color, speed);
 
-  var intervalId = setInterval(function() {
-
-    if (increment === limit) {
-
-      clearInterval(intervalId);
-    }
-    
-    doSelectionSortIteration(colorDistribution, color, increment);
-
-    increment++;
-
-  }, 250);
 
 
 }
@@ -118,53 +107,5 @@ function updateTable(colorDistrArr, colorScheme) {
 
 }
 
-function doSelectionSort(colorDistrArr, colorScheme) {
 
-  for (var i = 0; i < colorDistrArr.length; i++) {
-
-    var min = (colorScheme.length + 1); //there's only positive values 
-    var index = -1; 
-      //find the min
-    for (var j = i; j < colorDistrArr.length; j++) {
-
-      if (min > colorDistrArr[j]) {
-
-          min = colorDistrArr[j];
-          index = j
-      }
-
-    }
-      //swap it with the value at the zero index of the sub array
-      var swap = colorDistrArr[i];
-      colorDistrArr[i] = colorDistrArr[index];
-      colorDistrArr[index] = swap; 
-      updateTable(colorDistrArr, colorScheme);
-      
-  }
-
-}
-
-function doSelectionSortIteration(colorDistrArr, colorScheme, start) {
-
-  var min = (colorScheme.length + 1); //there's only positive values 
-  var index = -1; 
-      //find the min
-  for (var j = start; j < colorDistrArr.length; j++) {
-
-    if (min > colorDistrArr[j]) {
-
-        min = colorDistrArr[j];
-        index = j
-    }
-
-  }
-    //swap it with the value at the zero index of the sub array
-    var swap = colorDistrArr[start];
-    colorDistrArr[start] = colorDistrArr[index];
-    colorDistrArr[index] = swap;
-    updateTable(colorDistrArr, colorScheme); 
-
-}
-
-
-populateBoard(144);
+populateBoard(36);

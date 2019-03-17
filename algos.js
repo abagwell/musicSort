@@ -69,33 +69,6 @@ function selectionSort(colorDistrArr, colorScheme, stepSpeed) {
 
 }
 
-//obsolete
-
-function doSelectionSort(colorDistrArr, colorScheme) {
-
-  for (var i = 0; i < colorDistrArr.length; i++) {
-
-    var min = (colorScheme.length + 1); //there's only positive values 
-    var index = -1; 
-      //find the min
-    for (var j = i; j < colorDistrArr.length; j++) {
-
-      if (min > colorDistrArr[j]) {
-
-          min = colorDistrArr[j];
-          index = j
-      }
-
-    }
-      //swap it with the value at the zero index of the sub array
-      var swap = colorDistrArr[i];
-      colorDistrArr[i] = colorDistrArr[index];
-      colorDistrArr[index] = swap; 
-      updateTable(colorDistrArr, colorScheme);
-      
-  }
-
-}
 
 function doSelectionSortStep(colorDistrArr, colorScheme, start) {
 
@@ -116,5 +89,58 @@ function doSelectionSortStep(colorDistrArr, colorScheme, start) {
     colorDistrArr[start] = colorDistrArr[index];
     colorDistrArr[index] = swap;
     updateTable(colorDistrArr, colorScheme); 
+}
+
+function doInsertionSort(colorDistrArr, colorScheme) {
+
+  console.log("hello");
+
+  var sortedArr = [];
+  sortedArr.push(colorDistrArr[0]);
+  console.log("Here -_ " + sortedArr[0]);
+  var tempArr = [];
+
+
+  for (var i = 1; i < colorDistrArr.length; i++) {
+
+    console.log("Here - " + colorDistrArr[i]);
+
+    var loop = sortedArr.length
+    var swapped = false; 
+
+    for (var j = 0; j < loop; j++) {
+
+        if (colorDistrArr[i] < sortedArr[j]) { //check if array value is less than a value in sorted portion
+
+          //push and pop it
+
+          for (var k = j; k < loop; k++) {
+
+            tempArr.push(sortedArr.pop())
+          }
+
+          sortedArr.push(colorDistrArr[i]);
+
+          for (var k = j; k < loop; k++) {
+            sortedArr.push(tempArr.pop());
+          }
+
+          swapped = true;
+          break;  
+      
+        }
+    }
+    if (!swapped) {
+
+      sortedArr.push(colorDistrArr[i]);
+    }
+    console.log("sortedArr --  " + sortedArr);
+
+
+  }
+
+  console.log(sortedArr);
+  return sortedArr; 
+
 
 }

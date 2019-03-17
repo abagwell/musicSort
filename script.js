@@ -5,7 +5,7 @@ function populateBoard(count) {
   We nned to factor the input number to determine the number of rows and columns with 
   the goal being to find the factors that are closest in size to get a more square table 
   */
-  var color = yellow; 
+  var color = purple; 
   var speed = 250 
   var factor1 = Math.trunc(Math.sqrt(count));
   
@@ -21,8 +21,9 @@ function populateBoard(count) {
 
   buildTable(factor1, factor2, colorDistribution, color);
 
+  doInsertionSort(colorDistribution, color);
   //selectionSort(colorDistribution, color, speed);
-  bubbleSort(colorDistribution, color, speed);
+  //bubbleSort(colorDistribution, color, speed);
 
 
 
@@ -108,4 +109,4 @@ function updateTable(colorDistrArr, colorScheme) {
 }
 
 
-populateBoard(36);
+populateBoard(6);

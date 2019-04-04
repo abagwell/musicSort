@@ -21,7 +21,7 @@ function populateBoard(count) {
 
   buildTable(factor1, factor2, colorDistribution, color);
 
-  doInsertionSort(colorDistribution, color);
+  insertionSort(colorDistribution, color, speed);
   //selectionSort(colorDistribution, color, speed);
   //bubbleSort(colorDistribution, color, speed);
 
@@ -109,4 +109,4 @@ function updateTable(colorDistrArr, colorScheme) {
 }
 
 
-populateBoard(6);
+populateBoard(140);

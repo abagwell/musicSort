@@ -89,58 +89,76 @@ function doSelectionSortStep(colorDistrArr, colorScheme, start) {
     colorDistrArr[start] = colorDistrArr[index];
     colorDistrArr[index] = swap;
     updateTable(colorDistrArr, colorScheme); 
+
 }
 
-function doInsertionSort(colorDistrArr, colorScheme) {
+function insertionSort(colorDistrArr, colorScheme, stepSpeed) {
 
-  console.log("hello");
+    console.log("START");
+    console.log(colorDistrArr);
 
-  var sortedArr = [];
-  sortedArr.push(colorDistrArr[0]);
-  console.log("Here -_ " + sortedArr[0]);
-  var tempArr = [];
+    var increment = 1; 
+
+    var limit = colorDistrArr.length -1;
+
+    var intervalId = setInterval( () => {
+
+      if (increment === limit) {
+
+          clearInterval(intervalId);
+      }
+    
+      doInsertionSortStep(colorDistrArr, colorScheme, increment);
+
+      increment++;
+
+  }, stepSpeed);
 
 
-  for (var i = 1; i < colorDistrArr.length; i++) {
 
-    console.log("Here - " + colorDistrArr[i]);
+}
 
-    var loop = sortedArr.length
+function doInsertionSortStep(colorDistrArr, colorScheme, start) {
+
+  var loop = colorDistrArr.length
+
+  for (var i = start; i < loop; i++) {
+
+    var tempArr = []
+    //var loop = start;
     var swapped = false; 
 
-    for (var j = 0; j < loop; j++) {
+    for (var j = 0; j < start; j++) {
 
-        if (colorDistrArr[i] < sortedArr[j]) { //check if array value is less than a value in sorted portion
+        if (colorDistrArr[i] < colorDistrArr[j]) { //check if array value is less than a value in sorted portion
 
-          //push and pop it
+          //
+          var holder = colorDistrArr.splice(i, 1);
 
-          for (var k = j; k < loop; k++) {
+          //push and pop it - one less than the starting color distribution length because we removed an index
 
-            tempArr.push(sortedArr.pop())
+          for (var k = j; k < loop -1; k++) {
+
+            tempArr.push(colorDistrArr.pop())
           }
 
-          sortedArr.push(colorDistrArr[i]);
+          colorDistrArr.push(holder[0]);
 
-          for (var k = j; k < loop; k++) {
-            sortedArr.push(tempArr.pop());
+          for (var k = j; k < loop-1; k++) {
+            colorDistrArr.push(tempArr.pop());
           }
 
           swapped = true;
+
           break;  
       
         }
     }
-    if (!swapped) {
 
-      sortedArr.push(colorDistrArr[i]);
-    }
-    console.log("sortedArr --  " + sortedArr);
-
+    updateTable(colorDistrArr, colorScheme);
+    return;
 
   }
-
-  console.log(sortedArr);
-  return sortedArr; 
 
 
 }

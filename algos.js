@@ -120,45 +120,21 @@ function insertionSort(colorDistrArr, colorScheme, stepSpeed) {
 
 function doInsertionSortStep(colorDistrArr, colorScheme, start) {
 
-  var loop = colorDistrArr.length
+  for (var i = start; i < colorDistrArr.length; i++) {
 
-  for (var i = start; i < loop; i++) {
+    var holder = colorDistrArr[i];
 
-    var tempArr = []
-    //var loop = start;
-    var swapped = false; 
-
-    for (var j = 0; j < start; j++) {
-
-        if (colorDistrArr[i] < colorDistrArr[j]) { //check if array value is less than a value in sorted portion
-
-          //
-          var holder = colorDistrArr.splice(i, 1);
-
-          //push and pop it - one less than the starting color distribution length because we removed an index
-
-          for (var k = j; k < loop -1; k++) {
-
-            tempArr.push(colorDistrArr.pop())
-          }
-
-          colorDistrArr.push(holder[0]);
-
-          for (var k = j; k < loop-1; k++) {
-            colorDistrArr.push(tempArr.pop());
-          }
-
-          swapped = true;
-
-          break;  
-      
+    for (var j = i -1; j >= 0 && holder < colorDistrArr[j]; j--) {
+       
+          colorDistrArr[j+1] = colorDistrArr[j]; 
+          
         }
-    }
 
+    colorDistrArr[j+1] = holder;
     updateTable(colorDistrArr, colorScheme);
+    console.log(colorDistrArr)
     return;
 
   }
-
 
 }

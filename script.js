@@ -21,11 +21,15 @@ function populateBoard(count) {
 
   buildTable(factor1, factor2, colorDistribution, color);
 
-  insertionSort(colorDistribution, color, speed);
-  //selectionSort(colorDistribution, color, speed);
-  //bubbleSort(colorDistribution, color, speed);
 
+  document.querySelector('#playbutton').addEventListener('click', function() {
 
+      document.querySelector('#playbutton').style.backgroundColor = '#ff7f7f';
+      insertionSort(colorDistribution, color, speed);
+      //selectionSort(colorDistribution, color, speed);
+      //bubbleSort(colorDistribution, color, speed);
+
+  });
 
 }
 
@@ -45,6 +49,16 @@ function distributeColorIndexes(factor1, factor2, colorScheme) {
   }
 
   return colorDistribution;
+
+}
+
+/*
+
+
+*/
+
+function distributeSoundIndexes() {
+
 
 }
 
@@ -108,5 +122,20 @@ function updateTable(colorDistrArr, colorScheme) {
 
 }
 
+function playTable(colorDistrArr, colorScheme) {
 
-populateBoard(140);
+  const synth = new Tone.AMSynth().toMaster();
+
+  for (var i = 1 ; i <= colorDistrArr.length; i++) {
+
+     //document.getElementById(i).style.setProperty("background-color", colorScheme[colorDistrArr[i-1]]);
+     synth.triggerAttackRelease('C4', '8n');
+  }
+
+
+}
+
+
+
+
+populateBoard(144);

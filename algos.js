@@ -109,6 +109,7 @@ function insertionSort(colorDistrArr, colorScheme, stepSpeed) {
       }
     
       doInsertionSortStep(colorDistrArr, colorScheme, increment);
+      playSounds(frequencyScales, (50/1000))
 
       increment++;
 
@@ -132,7 +133,7 @@ function doInsertionSortStep(colorDistrArr, colorScheme, start) {
 
     colorDistrArr[j+1] = holder;
     updateTable(colorDistrArr, colorScheme);
-    console.log(colorDistrArr)
+    
     return;
 
   }

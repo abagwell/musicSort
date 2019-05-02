@@ -6,7 +6,7 @@ function populateBoard(count) {
   the goal being to find the factors that are closest in size to get a more square table 
   */
   var color = purple; 
-  var speed = 250 
+  var speed = 200;
   var factor1 = Math.trunc(Math.sqrt(count));
   
   while (count%factor1 != 0) {
@@ -138,4 +138,4 @@ function playTable(colorDistrArr, colorScheme) {
 
 
 
-populateBoard(144);
+populateBoard(12);
